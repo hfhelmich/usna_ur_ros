@@ -1,0 +1,20 @@
+HOW TO START UR ROBOT ROS INTERFACE
+
+
+*** First go to the UR Robot:
+1) Turn on the UR Robot
+2) Initialize the robot by powering on and starting it at the initialization screen
+3) Set the robot to "Local Mode" and navigate to the "Run" tab in the upper left hand corner
+4) Click "Load Program" on the left hand side of the teach pendant.
+5) Select "ExCtrl_1.0.5.urp" and then "Open" at the bottom of the screen.
+6) You should see the file populate on the left hand side and at the top of the screen.
+
+*** Go to the computer running the ROS interface code:
+1) Open a terminal window
+2) Type "roscore" to start the ros core functionality in that terminal
+3) Open a new terminal tab or window by pressing "ctrl+shit+t" (for a new tab) or "ctrl+shift+n" (for a new window)
+4) In the new window, type the command "roslaunch usna_urx robot_interface_URx.launch" and press enter. This will UDP the connection to the UR robot and begin publishing/receiving topics from the robot. The robot can be in "Remote" or "Local" mode.
+
+*** Return to the UR teach pendant:
+1) In the Run Program window, press the play button at the bottom of the screen. You should see a number of variables appear in the table/window on the right side of the screen. The status should change to "Running".
+2) Change the robot's mode from "Local" to "Remote". The complete system is now ready to use.

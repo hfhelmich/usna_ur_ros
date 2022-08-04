@@ -1,0 +1,37 @@
+<!--
+  Manipulator specific version of 'robot_interface_streaming.launch'.
+  Defaults provided for UR10:
+   - 6 joints
+  Usage:
+    robot_interface_URx.launch>
+-->
+<launch>
+  <!-- IP address of robot, change if necessary, default is 10.42.0.163 -->
+  <arg name="robot_ip" default="10.0.0.3" />
+
+  <!-- UR robot model, ur3, ur5, ur10 note, may not be compatible with urXe series -->
+  <arg name="model" value="ur3e" />
+
+  <!-- namespace argument for robot at this IP -->
+  <arg name="namesp" default="urb" />
+
+  <!-- port allocation for robot at this IP -->
+  <arg name="rev_port"        default="51004" />
+  <arg name="scrptsndr_port"  default="51005" />
+  <arg name="traj_port"     default="51006" />
+
+  <!-- controller: Controller name fs100 for usna sia20f purchased in AY21-->
+  <arg name="target_fname" value="$(find usna_ur_ros)/src/$(arg model)_factory_calibration.yaml" />
+
+
+  <include ns="$(arg namesp)" file="$(find usna_ur_ros)/src/launch/$(arg model)_bringup_multi.launch">
+    <arg name="robot_ip"   value="$(arg robot_ip)" />
+    <arg name="kinematics_config" value="$(arg target_fname)" />
+    <arg name="reverse_port"        value="$(arg rev_port)" />
+    <arg name="script_sender_port"  value="$(arg scrptsndr_port)" />
+    <arg name="trajectory_port"     value="$(arg traj_port)" />
+  </include>
+
+  <node name="trajectory_action_MatlabWrapper" pkg="usna_ur_ros" type="matlab_trajMulti_wrapper.py" ns="$(arg namesp)" respawn="true"/>
+
+</launch>
