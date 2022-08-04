@@ -12,15 +12,11 @@
   <!-- UR robot model, ur3, ur5, ur10 note, may not be compatible with urXe series -->
   <arg name="model" value="ur10" />
 
-  <!-- namespace argument for robot at this IP -->
-  <arg name="namesp" default="ura" />
-
-
   <!-- controller: Controller name fs100 for usna sia20f purchased in AY21-->
   <arg name="target_fname" value="/home/universal_robots/UR_ws/src/usna_ur_ros/src/$(arg model)_factory_calibration.yaml" />
 
 
-  <include ns="$(arg namesp)" file="$(find ur_robot_driver)/launch/$(arg model)_bringup.launch">
+  <include file="$(find ur_robot_driver)/launch/$(arg model)_bringup.launch">
     <arg name="robot_ip"   value="$(arg robot_ip)" />
     <arg name="kinematics_config" value="$(arg target_fname)" />
     <arg name="reverse_port"        value="50001" />
@@ -28,6 +24,6 @@
     <!-- arg name="trajectory_port"     value="51003" -->
   </include>
 
-  <node name="trajectory_action_MatlabWrapper" pkg="usna_ur_ros" type="matlab_trajectory_wrapper_ur.py" ns="$(arg namesp)" respawn="true"/>
+  <node name="trajectory_action_MatlabWrapper" pkg="usna_ur_ros" type="matlab_trajectory_wrapper_ur.py" respawn="true"/>
 
 </launch>
