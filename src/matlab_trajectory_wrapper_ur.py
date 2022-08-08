@@ -35,11 +35,13 @@ def move_callback(msg):
         client.wait_for_server()
         print("Connected to server")
         print('waiting for joint states from robot')
-        joint_states = rospy.wait_for_message("/joint_states", JointState)
+        joint_states = rospy.wait_for_message("joint_states", JointState)
         joints_pos = joint_states.position
         print("received joint states from robot...")
         print("compiling trajectory from MATLAB")
-        d = 5
+
+        d = 5   # Time buffer to allow robot to safely move to first pos
+
         g.trajectory.points = [JointTrajectoryPoint(positions=joints_pos, velocities=[0]*7, time_from_start=rospy.Duration(0.0))]
         print(msg)
         for i in range(len(msg.points)):
