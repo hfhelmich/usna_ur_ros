@@ -24,6 +24,6 @@
     <!-- arg name="trajectory_port"     value="51003" -->
   </include>
 
-  <node name="trajectory_action_MatlabWrapper" pkg="usna_ur_ros" type="matlab_trajectory_wrapper_ur.py" respawn="true"/>
+  <node name="trajectory_action_MatlabWrapper" pkg="usna_ur_ros" type="matlab_realTime_wrapper_ur.py" respawn="true"/>
 
 </launch>
